@@ -28,7 +28,8 @@ function createItem(text) {
   itemRow.setAttribute('data-id', id);
   itemRow.innerHTML = `
     <div class="item">
-    <span class="item_name">${text}</span>
+      <input type="checkbox" id="item_name_check" value="1"/>
+      <label for="item_name_check" class="item_name">${text}</label>
         <button class="item_delete" >
             <i class="fas fa-trash-alt" data-id=${id}></i>
         </button>

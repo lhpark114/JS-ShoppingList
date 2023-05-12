@@ -12,39 +12,38 @@
 
 <body>
   <!-- Navbar -->
-  <header id="header">
+  <header class="header">
     Shopping List
   </header>
 
   <!-- List -->
-  <form id="list">
-    
+  <div class="container">
+
     <h3> To do </h3>
     <ul class="incomplete-tasks">
-      <li class='todo-box'>
-        <input type="checkbox" id="todo-item" value="1"/>
-        <label class="item-name" for ="todo-item" type="text" >우유</label>
+      <li class='listItem'>
+        <input type="checkbox" id="todo-item" value="1" />
+        <label class="item-name" for="todo-item" type="text">우유</label>
+        <input type="text" class="editInput"></input>
         <button class="edit">Edit</button>
-        <button class="trash"><i class="fa-solid fa-trash-can"></i></button>
-      </li>  
+        <button class="delete"><i class="fa-solid fa-trash-can"></i></button>
+      </li>
     </ul>
 
     <h3> Completed </h3>
     <ul class="complete-tasks">
       <li class='todo-box'>
-        <input type="checkbox" id="todo-item" value="1"/>
-        <label class="item-name" for ="todo-item" type="text" >빵</label>
+        <input type="checkbox" id="todo-item" value="1" />
+        <label class="item-name" for="todo-item" type="text">빵</label>
         <button class="edit">Edit</button>
         <button class="trash"><i class="fa-solid fa-trash-can"></i></button>
-      </li>  
+      </li>
     </ul>
-    
-  </form>
-
+  </div>
   <!-- Bottom -->
-  <div id="bottom">
-    <input id="inputText" type="text" name="add" placeholder="What do you want?"/>
-    <button id="addBTN" ><i class="fa-solid fa-plus"></i></button>
+  <div class="bottom">
+    <input class="inputText" type="text" name="add" placeholder="What do you want?" />
+    <button class="addBTN"><i class="fa-solid fa-plus"></i></button>
   </div>
 
 

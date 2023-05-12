@@ -28,7 +28,7 @@ h3 {
   padding-bottom: 0px;
   margin: 0;
 }
-#list {
+.container {
   display: block;
   background-color: white;
   align-items: center;
@@ -45,7 +45,7 @@ h3 {
   text-decoration-thickness: 3px;
 }
 
-.todo-box {
+.listItem {
   width: 280px;
   display: flex;
   position: space-between;
@@ -62,7 +62,14 @@ h3 {
   margin: 3px;
 }
 
-.edit, .trash {
+.editInput {
+  width: 40%;
+  height: 13px;
+  background-color: pink;
+  border: none;
+  padding: 10px;
+}
+.edit, .delete {
   border: 3px salmon;
   background-color: transparent;
   font-size: 18px;
@@ -71,12 +78,12 @@ h3 {
 }
 
 .edit:hover, 
-.trash:hover {
+.delete:hover {
   color: red;
   cursor: pointer;
 }
 
-#bottom {
+.bottom {
   background-color: salmon;
   height: 100px;
   border-bottom-right-radius: 30px;
@@ -85,14 +92,14 @@ h3 {
   margin: auto;
 }
 
-#inputText {
+.inputText {
   width: 280px;
   padding: 10px;
   border: 1px salmon;
   background-color: pink;
 }
 
-#addBTN {
+.addBTN {
   background-color: white;
   width: 50px;
   height: 50px;

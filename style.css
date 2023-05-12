@@ -1,122 +1,85 @@
+* {
+    box-sizing: border-box;
+}
+
+ul {
+    padding: 0;
+}
+
 body {
-  width: 300px;
-  display: block;
-  position: relative;
-  margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: beige;
-  
+    background-color: beige;
+    text-align: center;
 }
 
-header {
-  background-color: salmon;
-  text-align: center;
-  line-height: 50px;
-  height: 50px;
-  border-top-right-radius: 30px;
-  border-top-left-radius: 30px;
-  font-size: 25px;
-  color: white;
+.list {
+    width: 400px;
+    margin: auto;
+    background-color: white;
 }
 
-h3 {
-  font-size: 20px;
-  color: salmon;
-  padding-top: 20px;
-  padding-left: 20px;
-  padding-bottom: 0px;
-  margin: 0;
-}
-.container {
-  display: block;
-  background-color: white;
-  align-items: center;
+.header {
+    height: 48px;
+    padding: 8px;
+    font-size: 24px;
+    background-color: salmon;
+    border-radius: 20px 20px 0 0;
+    color: white;
 }
 
-.incomplete-tasks input[type="checkbox"],
-.incomplete-tasks input[type="checkbox"]:checked + label, 
-.complete-tasks input[type="checkbox"],
-.complete-tasks input[type="checkbox"]:checked + label{
-	opacity: .5;
-	text-decoration: line-through;
-  text-decoration-color: red;
-  text-decoration-style: dashed;
-  text-decoration-thickness: 3px;
+.items {
+    height: 500px;
+    overflow-y: auto;
 }
 
-.listItem {
-  width: 280px;
-  display: flex;
-  position: space-between;
-  margin: auto;
-  padding: 15px 1px;
-  list-style: none;
-  align-items: center;
+.item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 32px;
 }
 
-.item-name {
-  display: inline-block;
-  background-color: beige;
-  padding: 5px;
-  margin: 3px;
-}
-
-.editInput {
-  width: 40%;
-  height: 13px;
-  background-color: pink;
-  border: none;
-  padding: 10px;
-}
-.edit, .delete {
-  border: 3px salmon;
-  background-color: transparent;
-  font-size: 18px;
-  color: salmon;
-  padding: 5px;
-}
-
-.edit:hover, 
-.delete:hover {
-  color: red;
-  cursor: pointer;
-}
-
-.bottom {
-  background-color: salmon;
-  height: 100px;
-  border-bottom-right-radius: 30px;
-  border-bottom-left-radius: 30px;
-  align-items: center;
-  margin: auto;
-}
-
-.inputText {
-  width: 280px;
-  padding: 10px;
-  border: 1px salmon;
-  background-color: pink;
-}
-
-.addBTN {
-  background-color: white;
-  width: 50px;
-  height: 50px;
-  border: none;
-  border-radius: 100%;
-  display: flex;
-  align-items: center;
-  margin: auto;
-  margin-top: 8px;
-}
-.fa-plus {
+.item_delete {
   color: pink;
-  font-size: 35px;
-  line-height: 50px;
-  margin: auto;
+    font-size: 16px;
+    transition: all 300ms ease-in;
+  border: none;
+  background-color: transparent;
+}
+.item_delete:hover {
+    color: red;
+    transform: scale(1.1);
 }
 
-i:hover {
-  cursor: pointer;
+.item_divider {
+    width: 90%;
+    height: 1px;
+    background-color: lightgray;
+    margin: auto;
+}
+
+.footer {
+    background-color: salmon;
+    border-radius: 0 0 20px 20px;
+}
+
+.footer_input {
+    width: 100%;
+    height: 32px;
+    border: none;
+    outline: none;
+    font-size: 24px;
+    padding: 0 16px;
+}
+
+.footer_button {
+    width: 48px;
+    height: 48px;
+    font-size: 28px;
+    background-color: white;
+    border-radius: 50%;
+  border: none;
+    color: salmon;
+}
+
+.footer_button:hover {
+    transform: scale(1.1);
 }

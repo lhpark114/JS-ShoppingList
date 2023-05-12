@@ -1,67 +1,48 @@
-const todoBox = document.querySelector('.todo-box');
-const inputText = document.querySelector('.inputText');
-const addBTN = document.querySelector('.addBTN');
-const incompleteTasksHolder = document.querySelector('.incomplete-tasks');
-const completeTasksHolder = document.querySelector('.complete-tasks');
+const items = document.querySelector('.items');
+const input = document.querySelector('.footer_input');
+const addBtn = document.querySelector('.footer_button');
+const form = document.querySelector('.new_form');
+
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  onAdd();
+});
 
 function onAdd() {
-  // Input New Text
-  const text = inputText.value;
-  console.log(text);
-  // Create 'New Text' (Text + Delete)
+  const text = input.value;
+  if (text === '') {
+    input.focus();
+    return;
+  }
   const item = createItem(text);
-
-  // Add 'Next Text' in the container
-  const listItem = document.createElement('li');
-  listItem.setAttribute('class', 'listItem');
-  incompleteTasksHolder.appendChild(listItem);
-  // Reset 'Input'
-  inputText.value = '';
-  inputText.focus();
+  items.appendChild(item);
+  item.scrollIntoView({ block: 'center' });
+  input.value = '';
+  input.focus();
 }
 
-function createItem(taskString) {
-  //Create List Item
-  const listItem = document.createElement('li');
-  listItem.setAttribute('class', 'listItem');
+let id = 0; // UUID
+function createItem(text) {
+  const itemRow = document.createElement('li');
+  itemRow.setAttribute('class', 'item_row');
+  itemRow.setAttribute('data-id', id);
+  itemRow.innerHTML = `
+    <div class="item">
+    <span class="item_name">${text}</span>
+        <button class="item_delete" >
+            <i class="fas fa-trash-alt" data-id=${id}></i>
+        </button>
+    </div>
+    <div class="item_divider"></div>`;
+  id++;
 
-  const checkBox = document.createElement("input");
-  listItem.setAttribute('id', 'todo-item');
-
-  const label = document.createElement("label");
-  listItem.setAttribute('class', 'item-name');
-  
- const editInput = document.createElement("input");
-listItem.setAttribute('class', 'editInput');
-  
- const editButton = document.createElement("button");
-    listItem.setAttribute('button', 'edit');
-  const deleteButton = document.createElement("button");
-listItem.setAttribute('button', 'trash');
-  //Each element needs modifying
-  
-checkBox.type = "checkbox";
-    editInput.type = "text";
-
-    editButton.innerText = "Edit";
-    editButton.className = "edit";
-    deleteButton.innerText = "Delete";
-    deleteButton.className = "delete";
-
-    label.innerText = taskString;
-   
-
-  //Each element needs appending
-    listItem.appendChild(checkBox);
-    listItem.appendChild(label);
-    listItem.appendChild(editInput);
-    listItem.appendChild(editButton);
-    listItem.appendChild(deleteButton);
-
-    return listItem;
+  return itemRow;
 }
 
-
-addBTN.addEventListener('click', () => {
-  onAdd();
-})
+items.addEventListener('click', (event) => {
+  const id = event.target.dataset.id;
+  if (id) {
+    const toBeDeleted = document.querySelector(`.item_row[data-id="${id}"]`);
+    toBeDeleted.remove();
+  }
+});

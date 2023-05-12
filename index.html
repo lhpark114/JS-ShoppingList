@@ -1,53 +1,42 @@
 <!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>Shopping List</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
-  <script src="https://kit.fontawesome.com/dde5490d2b.js" crossorigin="anonymous"></script>
-  <script src="script.js"></script>
-</head>
-
-<body>
-  <!-- Navbar -->
-  <header class="header">
-    Shopping List
-  </header>
-
-  <!-- List -->
-  <div class="container">
-
-    <h3> To do </h3>
-    <ul class="incomplete-tasks">
-      <li class='listItem'>
-        <input type="checkbox" id="todo-item" value="1" />
-        <label class="item-name" for="todo-item" type="text">우유</label>
-        <input type="text" class="editInput"></input>
-        <button class="edit">Edit</button>
-        <button class="delete"><i class="fa-solid fa-trash-can"></i></button>
-      </li>
-    </ul>
-
-    <h3> Completed </h3>
-    <ul class="complete-tasks">
-      <li class='todo-box'>
-        <input type="checkbox" id="todo-item" value="1" />
-        <label class="item-name" for="todo-item" type="text">빵</label>
-        <button class="edit">Edit</button>
-        <button class="trash"><i class="fa-solid fa-trash-can"></i></button>
-      </li>
-    </ul>
-  </div>
-  <!-- Bottom -->
-  <div class="bottom">
-    <input class="inputText" type="text" name="add" placeholder="What do you want?" />
-    <button class="addBTN"><i class="fa-solid fa-plus"></i></button>
-  </div>
-
-
-
-</body>
-
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TodoList</title>
+    <script src="script.js" defer></script>
+    <script
+      src="https://kit.fontawesome.com/dde5490d2b.js"
+      crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://kit.fontawesome.com/9eb162ac0d.js" />
+  </head>
+  <body>
+    <section class="list">
+      <header class="header">Shopping List</header>
+      <ul class="items">
+        <li class="item_row">
+          <div class="item">
+            <span class="item_name">Egg</span>
+            <button class="item_delete">
+              <i class="fas fa-trash-can"></i>
+            </button>
+          </div>
+          <div class="item_divider"></div>
+        </li>
+      </ul>
+      <form class="new_form">
+        <footer class="footer">
+          <input type="text" class="footer_input" />
+          <button type="submit" class="footer_button">
+            <i class="fas fa-plus"></i>
+          </button>
+        </footer>
+      </form>
+    </section>
+  </body>
 </html>

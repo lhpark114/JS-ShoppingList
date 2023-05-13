@@ -2,7 +2,7 @@ const items = document.querySelector('.items');
 const input = document.querySelector('.footer_input');
 const addBtn = document.querySelector('.footer_button');
 const form = document.querySelector('.new_form');
-const itemName = document.querySelector('.item_name');
+
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -53,12 +53,11 @@ items.addEventListener('click', (event) => {
   }
 });
 
+const itemName = document.querySelector('.item_name');
 const editBTN = document.querySelector('.item_edit');
 const newItemInput = document.createElement('input');
-editBTN.addEventListener('click', (event) => {
-  console.log('dfdfdfdf');
+editBTN.addEventListener('click', () => {
   itemName.innerHTML = '';
-  
   newItemInput.type = 'text';
   newItemInput.className = 'newItemInput';
   itemName.appendChild(newItemInput);
@@ -66,14 +65,14 @@ editBTN.addEventListener('click', (event) => {
   
   editBTN.innerText='Update';
   
-  updateItem();
+  updateItem(newItemInput);
 });
 
 function updateItem() {
-  const updatedItem = newItemInput.value;
-  editBTN.addEventListener('click', () => {
-  const newSpan = document.createElement('span');
-  itemName.appendChild(newSpan);})
-  
-
+  itemName.setAttribute('class', 'itemName');
+  newItemInput.setAttribute('id', 'newItemInput');
+  const prevItem = document.getElementByclassName('itemName');
+  const updatedItem = document.getElementById('newItemInput').value;
+  prevItem.innerHTML = `<span class="item_name">${updatedItem}</span>`;
+  return prevItem;
 };

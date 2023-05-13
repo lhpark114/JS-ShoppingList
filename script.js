@@ -30,9 +30,11 @@ function createItem(text) {
   itemRow.innerHTML = `
     <div class="item">
       <input type="checkbox" id="item_name_check" value="1"/>
-      <label for="item_name_check" class="item_name">${text}</label>
+      <label for="item_name_check">
+        <span class="item_name">${text}</span>
+      </label>
       <div class="button_container">
-            <button class="item_edit" >Edit</button>
+            <button class="item_edit">Edit</button>
             <button class="item_delete" >
                 <i class="fas fa-trash-alt" data-id=${id}></i>
             </button>
@@ -51,9 +53,27 @@ items.addEventListener('click', (event) => {
   }
 });
 
-function editItem(text) {
-  const editBTN = document.querySelector('.item_edit');
-  editBTN.innerHTML = 'edit';
-  editBTN.classList.add('edit');
-  items.appendChild(editBTN);
-}
+const editBTN = document.querySelector('.item_edit');
+const newItemInput = document.createElement('input');
+editBTN.addEventListener('click', (event) => {
+  console.log('dfdfdfdf');
+  itemName.innerHTML = '';
+  
+  newItemInput.type = 'text';
+  newItemInput.className = 'newItemInput';
+  itemName.appendChild(newItemInput);
+  newItemInput.focus();
+  
+  editBTN.innerText='Update';
+  
+  updateItem();
+});
+
+function updateItem() {
+  const updatedItem = newItemInput.value;
+  editBTN.addEventListener('click', () => {
+  const newSpan = document.createElement('span');
+  itemName.appendChild(newSpan);})
+  
+
+};

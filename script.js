@@ -2,6 +2,7 @@ const items = document.querySelector('.items');
 const input = document.querySelector('.footer_input');
 const addBtn = document.querySelector('.footer_button');
 const form = document.querySelector('.new_form');
+const itemName = document.querySelector('.item_name');
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -30,13 +31,15 @@ function createItem(text) {
     <div class="item">
       <input type="checkbox" id="item_name_check" value="1"/>
       <label for="item_name_check" class="item_name">${text}</label>
-        <button class="item_delete" >
-            <i class="fas fa-trash-alt" data-id=${id}></i>
-        </button>
+      <div class="button_container">
+            <button class="item_edit" >Edit</button>
+            <button class="item_delete" >
+                <i class="fas fa-trash-alt" data-id=${id}></i>
+            </button>
+      </div>
     </div>
     <div class="item_divider"></div>`;
   id++;
-
   return itemRow;
 }
 
@@ -47,3 +50,10 @@ items.addEventListener('click', (event) => {
     toBeDeleted.remove();
   }
 });
+
+function editItem(text) {
+  const editBTN = document.querySelector('.item_edit');
+  editBTN.innerHTML = 'edit';
+  editBTN.classList.add('edit');
+  items.appendChild(editBTN);
+}

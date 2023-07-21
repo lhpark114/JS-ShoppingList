@@ -3,7 +3,6 @@ const input = document.querySelector('.footer_input');
 const addBtn = document.querySelector('.footer_button');
 const form = document.querySelector('.new_form');
 
-
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   onAdd();
@@ -56,23 +55,21 @@ items.addEventListener('click', (event) => {
 const itemName = document.querySelector('.item_name');
 const editBTN = document.querySelector('.item_edit');
 const newItemInput = document.createElement('input');
-editBTN.addEventListener('click', () => {
-  itemName.innerHTML = '';
-  newItemInput.type = 'text';
-  newItemInput.className = 'newItemInput';
-  itemName.appendChild(newItemInput);
-  newItemInput.focus();
-  
-  editBTN.innerText='Update';
-  
-  updateItem(newItemInput);
-});
 
-function updateItem() {
-  itemName.setAttribute('class', 'itemName');
-  newItemInput.setAttribute('id', 'newItemInput');
-  const prevItem = document.getElementByclassName('itemName');
-  const updatedItem = document.getElementById('newItemInput').value;
-  prevItem.innerHTML = `<span class="item_name">${updatedItem}</span>`;
-  return prevItem;
-};
+editBTN.addEventListener('click', (event) => {
+  if (event.target.innerText === 'Update') {
+    itemName.innerText = newItemInput.value;
+    newItemInput.value = '';
+    editBTN.innerText = 'Edit';
+  } else {
+    console.log('dfdfdfdf');
+    itemName.innerHTML = '';
+
+    newItemInput.type = 'text';
+    newItemInput.className = 'newItemInput';
+    itemName.appendChild(newItemInput);
+    newItemInput.focus();
+
+    editBTN.innerText = 'Update';
+  }
+});

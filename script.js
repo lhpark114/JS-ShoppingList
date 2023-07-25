@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 const items = document.querySelector('.items');
 const input = document.querySelector('.footer_input');
 const addBtn = document.querySelector('.footer_button');
@@ -21,15 +23,17 @@ function onAdd() {
   input.focus();
 }
 
-let id = 0; // UUID
+let id = 0;
+let myuuid = uuidv4();
 function createItem(text) {
   const itemRow = document.createElement('li');
   itemRow.setAttribute('class', 'item_row');
   itemRow.setAttribute('data-id', id);
+  itemRow.setAttribute('myuuid', myuuid);
   itemRow.innerHTML = `
     <div class="item">
-      <input type="checkbox" id="item_name_check" value="1"/>
-      <label for="item_name_check">
+      <input type="checkbox" myuuid=${myuuid} id="row_check" value="1"/>
+      <label for="row_check">
         <span class="item_name">${text}</span>
       </label>
       <div class="button_container">

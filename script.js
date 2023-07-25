@@ -62,7 +62,6 @@ editBTN.addEventListener('click', (event) => {
     newItemInput.value = '';
     editBTN.innerText = 'Edit';
   } else {
-    console.log('dfdfdfdf');
     itemName.innerHTML = '';
 
     newItemInput.type = 'text';

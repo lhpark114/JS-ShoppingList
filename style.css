@@ -12,17 +12,23 @@ body {
 }
 
 .list {
-  width: 400px;
+  background-color: #f1f0f7;
+  border-radius: 1.25rem;
+  width: 25rem;
   margin: auto;
-  background-color: white;
+  /* box shadow */
+  border-radius: 5rem;
+  border-radius: 5rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
 }
 
 .header {
-  height: 48px;
-  padding: 8px;
-  font-size: 24px;
+  height: 5rem;
+  padding: 0.8rem;
+  font-size: 1.5rem;
   background-color: salmon;
-  border-radius: 20px 20px 0 0;
+  border-radius: 1.2rem 1.2rem 0 0;
   color: white;
 }
 
@@ -34,13 +40,13 @@ body {
 .item {
   display: flex;
   justify-content: space-between;
-  padding: 8px;
+  padding: 0.5rem;
 }
 
-
-.item_edit, .item_delete {
+.item_edit,
+.item_delete {
   color: pink;
-  font-size: 16px;
+  font-size: 1rem;
   transition: all 300ms ease-in;
   border: none;
   background-color: transparent;
@@ -53,46 +59,46 @@ body {
   cursor: pointer;
 }
 
-
 .item input[type='checkbox']:checked + label {
   opacity: 0.5;
   text-decoration: line-through;
   text-decoration-color: red;
   text-decoration-style: dashed;
-  text-decoration-thickness: 3px;
+  text-decoration-thickness: 0.2rem;
 }
 
-
-.footer_input::placeholder{
-    color: var(--primarytext);
+.footer_input::placeholder {
+  color: var(--primarytext);
 }
-
 
 .item_divider {
   width: 90%;
-  height: 1px;
+  height: 0.1rem;
   background-color: lightgray;
   margin: auto;
 }
 
 .footer {
+  height: 5.2rem;
   background-color: salmon;
-  border-radius: 0 0 20px 20px;
+  border-radius: 0 0 1.2rem 1.2rem;
 }
 
 .footer_input {
   width: 100%;
-  height: 32px;
-  border: none;
-  outline: none;
-  font-size: 24px;
-  padding: 0 16px;
+  padding: 0.2rem 0.2rem;
+  height: 2rem;
+  border: 1rem red;
+  outline: red;
+  font-size: 1rem;
+  padding: 0 1rem;
+  background-color: pink;
 }
 
 .footer_button {
-  width: 48px;
-  height: 48px;
-  font-size: 28px;
+  width: 3rem;
+  height: 3rem;
+  font-size: 2.5rem;
   background-color: white;
   border-radius: 50%;
   border: none;

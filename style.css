@@ -1,3 +1,4 @@
+/* Universal tags */
 * {
   box-sizing: border-box;
 }
@@ -11,18 +12,7 @@ body {
   text-align: center;
 }
 
-.list {
-  background-color: #f1f0f7;
-  border-radius: 1.25rem;
-  width: 25rem;
-  margin: auto;
-  /* box shadow */
-  border-radius: 5rem;
-  border-radius: 5rem;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
-    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
-}
-
+/* Header */
 .header {
   height: 5rem;
   padding: 0.8rem;
@@ -32,6 +22,18 @@ body {
   color: white;
 }
 
+/* Body */
+.list {
+  background-color: white;
+  border-radius: 1.25rem;
+  width: 25rem;
+  margin: auto;
+  /* box shadow */
+  border-radius: 5rem;
+  border-radius: 5rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+}
 .items {
   height: 500px;
   overflow-y: auto;
@@ -67,15 +69,16 @@ body {
   text-decoration-thickness: 0.2rem;
 }
 
-.footer_input::placeholder {
-  color: var(--primarytext);
-}
-
 .item_divider {
   width: 90%;
   height: 0.1rem;
   background-color: lightgray;
   margin: auto;
+}
+
+/* Footer */
+.footer_input::placeholder {
+  color: var(--primarytext);
 }
 
 .footer {

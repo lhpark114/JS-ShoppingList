@@ -5,41 +5,54 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TodoList</title>
-    <script src="script.js" defer></script>
-    <script src="date.js" defer></script>
-    <script
-      src="https://kit.fontawesome.com/dde5490d2b.js"
-      crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style.css" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://kit.fontawesome.com/9eb162ac0d.js" />
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700&family=Roboto:wght@400;700&family=Rock+Salt&display=swap"
+      rel="stylesheet" />
+
+    <!--Font Awesome -->
+    <script
+      src="https://kit.fontawesome.com/7f35c0b706.js"
+      defer
+      crossorigin="anonymous"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- JavaScript -->
+    <script type="module" src="script.js" defer></script>
+    <script type="module" src="date.js" defer></script>
+    
   </head>
   <body>
     <section class="list">
+      <!-- Header -->
       <header class="header">
         <div class="header__date"></div>
         <div class="header__name">
-        Just do it <i class="fa-solid fa-check-double"></i> 
-        </div>    
-    </header>
-
+          Just do it <i class="fa-solid fa-check-double"></i>
+        </div>
+      </header>
+      <!-- Body -->
       <ul class="items">
-        <li class="item_row">
-          <div class="item">
-            <input type="checkbox" id="item_name_check" value="1"/>
-            <label for="item_name_check"><span class="item_name">Egg</span></label>
-            <div class="button_container">
-              <button class="item_edit">Edit</button>
-              <button class="item_delete">
-                <i class="fas fa-trash-can"></i>
-              </button>
-            </div>
-            
-          </div>
-          <div class="item_divider"></div>
-        </li>
+              <li class="item_row">
+                <div class="item">
+                  <input type="checkbox" id="item_name_check" value="1" />
+                  <label for="item_name_check"
+                    ><span class="item_name">Egg</span></label
+                  >
+                  <div class="button_container">
+                    <button class="item_edit">Edit</button>
+                    <button class="item_delete">
+                      <i class="fas fa-trash-can"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="item_divider"></div>
+              </li>
       </ul>
       <form class="new_form">
         <footer class="footer">

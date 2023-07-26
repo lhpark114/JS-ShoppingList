@@ -3,6 +3,31 @@ const input = document.querySelector('.footer_input');
 const addBtn = document.querySelector('.footer_button');
 const form = document.querySelector('.new_form');
 
+let myItems = [];
+const listKey = 'myItems';
+
+function saveItems() {
+  localStorage.setItem(listKey, JSON.stringify(myItems));
+}
+
+function loadItems() {
+  const savedItems = localStorage.getItem(listKey);
+  if (savedItems) {
+    myItems = JSON.parse(savedItems);
+  }
+  renderItems();
+}
+
+function renderItems() {
+  items.innerHTML = '';
+  myItems.forEach((item) => {
+    const newItem = createItem(item.text, item.id);
+    items.appendChild(newItem);
+  });
+}
+
+loadItems();
+
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   onAdd();
@@ -14,11 +39,15 @@ function onAdd() {
     input.focus();
     return;
   }
-  const item = createItem(text);
-  items.appendChild(item);
-  item.scrollIntoView({ block: 'center' });
-  input.value = '';
+  const item = { text, id: Date.now() };
+  myItems.push(item);
   saveItems();
+
+  const itemRow = createItem(text, item.id);
+  items.appendChild(itemRow);
+  itemRow.scrollIntoView({ block: 'center' });
+  input.value = '';
+
   input.focus();
 }
 
@@ -51,6 +80,8 @@ items.addEventListener('click', (event) => {
     );
     toBeDeleted.remove();
   }
+
+  saveItems();
 });
 
 const itemName = document.querySelector('.item_name');
@@ -72,11 +103,6 @@ editBTN.addEventListener('click', (event) => {
 
     editBTN.innerText = 'Update';
   }
+
+  saveItems();
 });
-
-const myItems = [];
-function saveItems() {
-  localStorage.setItem('items', JSON.stringify(myItems));
-}
-
-const savedItems = localStorage.getItem();

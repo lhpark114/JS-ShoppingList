@@ -14,14 +14,26 @@ function loadItems() {
   const savedItems = localStorage.getItem(listKey);
   if (savedItems) {
     myItems = JSON.parse(savedItems);
-  }
+  
+    myItems.forEach(item => {
+      const newItem = createItem(item.text, item.id);
+      if (item.checked) {
+        newItem.classList.add('checked');
+        newItem.querySelector('.fa-circle-check').classList.add('clicked');
+      }
+    });
   renderItems();
+}
 }
 
 function renderItems() {
   items.innerHTML = '';
   myItems.forEach((item) => {
     const newItem = createItem(item.text, item.id);
+    if (item.checked) {
+      newItem.classList.add('checked');
+      newItem.querySelector('.fa-circle-check').classList.add('clicked');
+    }
     items.appendChild(newItem);
   });
 }
@@ -57,10 +69,11 @@ function createItem(text, id) {
   itemRow.setAttribute('data-id', id || Date.now());
   itemRow.innerHTML = `
     <div class="item">
-      <input type="checkbox" value="1"/>
-      <label>
+        <button class="list__done" >
+          <i class="fa-sharp fa-regular fa-circle-check"></i>
+        </button>
         <span class="item_name">${text}</span>
-      </label>
+
       <div class="button_container">
             <button class="item_edit">Edit</button>
             <button class="item_delete" >
@@ -73,15 +86,28 @@ function createItem(text, id) {
 }
 
 items.addEventListener('click', (event) => {
-  const id = event.target.dataset.id;
-  if (id) {
-    const toBeDeleted = document.querySelector(
-      `.item_row[data-id="${id || Date.now()}"]`
-    );
-    toBeDeleted.remove();
+  const clickedElement = event.target;
+  const listItem = clickedElement.closest('.item_row');
+  if (!listItem) return;
+
+  const id = parseInt(listItem.dataset.id);
+  if (listItem) {
+    //  if trash icon clicked, delete the list
+    if (clickedElement.classList.contains('fa-trash-can')) {
+      myItems = myItems.filter(item => item.id !== id);
+      saveItems();
+      listItem.remove();
+    }
   }
 
-  saveItems();
+  //  if check-icon clicked, line-through the list
+  if (clickedElement.classList.contains('fa-circle-check')) {
+    listItem.classList.toggle('checked');
+    clickedElement.classList.toggle('clicked');
+      const foundItem = myItems.find((item) => item.id === id);
+      foundItem.checked = !foundItem.checked;
+    saveItems();
+  }
 });
 
 const itemName = document.querySelector('.item_name');

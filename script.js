@@ -93,7 +93,7 @@ items.addEventListener('click', (event) => {
   const id = parseInt(listItem.dataset.id);
   if (listItem) {
     //  if trash icon clicked, delete the list
-    if (clickedElement.classList.contains('fa-trash-can')) {
+    if (clickedElement.classList.contains('fa-trash-alt')) {
       myItems = myItems.filter(item => item.id !== id);
       saveItems();
       listItem.remove();

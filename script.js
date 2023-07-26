@@ -18,6 +18,7 @@ function onAdd() {
   items.appendChild(item);
   item.scrollIntoView({ block: 'center' });
   input.value = '';
+  saveItems();
   input.focus();
 }
 
@@ -72,3 +73,10 @@ editBTN.addEventListener('click', (event) => {
     editBTN.innerText = 'Update';
   }
 });
+
+const myItems = [];
+function saveItems() {
+  localStorage.setItem('items', JSON.stringify(myItems));
+}
+
+const savedItems = localStorage.getItem();

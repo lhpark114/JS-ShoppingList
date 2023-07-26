@@ -1,5 +1,3 @@
-
-
 const items = document.querySelector('.items');
 const input = document.querySelector('.footer_input');
 const addBtn = document.querySelector('.footer_button');
@@ -47,7 +45,9 @@ function createItem(text, id) {
 items.addEventListener('click', (event) => {
   const id = event.target.dataset.id;
   if (id) {
-    const toBeDeleted = document.querySelector(`.item_row[data-id="${id}"]`);
+    const toBeDeleted = document.querySelector(
+      `.item_row[data-id="${id || Date.now()}"]`
+    );
     toBeDeleted.remove();
   }
 });

@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
+
 
 const items = document.querySelector('.items');
 const input = document.querySelector('.footer_input');
@@ -23,28 +23,24 @@ function onAdd() {
   input.focus();
 }
 
-let id = 0;
-let myuuid = uuidv4();
-function createItem(text) {
+function createItem(text, id) {
   const itemRow = document.createElement('li');
   itemRow.setAttribute('class', 'item_row');
-  itemRow.setAttribute('data-id', id);
-  itemRow.setAttribute('myuuid', myuuid);
+  itemRow.setAttribute('data-id', id || Date.now());
   itemRow.innerHTML = `
     <div class="item">
-      <input type="checkbox" myuuid=${myuuid} id="row_check" value="1"/>
-      <label for="row_check">
+      <input type="checkbox" value="1"/>
+      <label>
         <span class="item_name">${text}</span>
       </label>
       <div class="button_container">
             <button class="item_edit">Edit</button>
             <button class="item_delete" >
-                <i class="fas fa-trash-alt" data-id=${id}></i>
+                <i class="fas fa-trash-alt" data-id=${id || Date.now()}></i>
             </button>
       </div>
     </div>
     <div class="item_divider"></div>`;
-  id++;
   return itemRow;
 }
 

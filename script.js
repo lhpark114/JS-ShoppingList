@@ -14,16 +14,16 @@ function loadItems() {
   const savedItems = localStorage.getItem(listKey);
   if (savedItems) {
     myItems = JSON.parse(savedItems);
-  
-    myItems.forEach(item => {
+
+    myItems.forEach((item) => {
       const newItem = createItem(item.text, item.id);
       if (item.checked) {
         newItem.classList.add('checked');
         newItem.querySelector('.fa-circle-check').classList.add('clicked');
       }
     });
-  renderItems();
-}
+    renderItems();
+  }
 }
 
 function renderItems() {
@@ -75,7 +75,7 @@ function createItem(text, id) {
         <span class="item_name">${text}</span>
 
       <div class="button_container">
-            <button class="item_edit">Edit</button>
+            <button class="item_edit"}>Edit</button>
             <button class="item_delete" >
                 <i class="fas fa-trash-alt" data-id=${id || Date.now()}></i>
             </button>
@@ -92,43 +92,52 @@ items.addEventListener('click', (event) => {
 
   const id = parseInt(listItem.dataset.id);
   if (listItem) {
-    //  if trash icon clicked, delete the list
     if (clickedElement.classList.contains('fa-trash-alt')) {
-      myItems = myItems.filter(item => item.id !== id);
+      myItems = myItems.filter((item) => item.id !== id);
       saveItems();
       listItem.remove();
     }
+    if (clickedElement.classList.contains('item_edit')) {
+      myItems = myItems.filter((item) => item.id === id);
+      saveItems();
+      console.log('myItems');
+      editUpdate();
+      console.log('myItemsedit');
+    }
   }
 
-  //  if check-icon clicked, line-through the list
   if (clickedElement.classList.contains('fa-circle-check')) {
     listItem.classList.toggle('checked');
     clickedElement.classList.toggle('clicked');
-      const foundItem = myItems.find((item) => item.id === id);
-      foundItem.checked = !foundItem.checked;
+    const foundItem = myItems.find((item) => item.id === id);
+    foundItem.checked = !foundItem.checked;
     saveItems();
   }
 });
 
-const itemName = document.querySelector('.item_name');
-const editBTN = document.querySelector('.item_edit');
-const newItemInput = document.createElement('input');
+function editUpdate() {
+  const itemName = document.querySelector('data-id .item_name');
+  const editBTN = document.querySelector('data-id .item_edit');
+  const newItemInput = document.createElement('input');
 
-editBTN.addEventListener('click', (event) => {
-  if (event.target.innerText === 'Update') {
-    itemName.innerText = newItemInput.value;
-    newItemInput.value = '';
-    editBTN.innerText = 'Edit';
-  } else {
-    itemName.innerHTML = '';
+  editBTN.addEventListener('click', (event) => {
+    console.log('Clicked');
 
-    newItemInput.type = 'text';
-    newItemInput.className = 'newItemInput';
-    itemName.appendChild(newItemInput);
-    newItemInput.focus();
+    if (event.target.innerText === 'Update') {
+      itemName.innerText = newItemInput.value;
+      newItemInput.value = '';
+      editBTN.innerText = 'Edit';
+    } else {
+      itemName.innerHTML = '';
 
-    editBTN.innerText = 'Update';
-  }
+      newItemInput.type = 'text';
+      newItemInput.className = 'newItemInput';
+      itemName.appendChild(newItemInput);
+      newItemInput.focus();
 
-  saveItems();
-});
+      editBTN.innerText = 'Update';
+    }
+
+    saveItems();
+  });
+}

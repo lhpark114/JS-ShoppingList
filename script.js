@@ -3,6 +3,7 @@ const input = document.querySelector('.footer_input');
 const addBtn = document.querySelector('.footer_button');
 const form = document.querySelector('.new_form');
 
+// <!-- Local Storage -->
 let myItems = [];
 const listKey = 'myItems';
 
@@ -16,7 +17,7 @@ function loadItems() {
     myItems = JSON.parse(savedItems);
 
     myItems.forEach((item) => {
-      const newItem = createItem(item.text, item.id);
+      const newItem = createItem(item.postId, item.text);
       if (item.checked) {
         newItem.classList.add('checked');
         newItem.querySelector('.fa-circle-check').classList.add('clicked');
@@ -29,7 +30,7 @@ function loadItems() {
 function renderItems() {
   items.innerHTML = '';
   myItems.forEach((item) => {
-    const newItem = createItem(item.text, item.id);
+    const newItem = createItem(item.postId, item.text);
     if (item.checked) {
       newItem.classList.add('checked');
       newItem.querySelector('.fa-circle-check').classList.add('clicked');
@@ -45,17 +46,29 @@ form.addEventListener('submit', (event) => {
   onAdd();
 });
 
+const postBox = document.querySelector('.post_box');
+const editInput = document.createElement('input');
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = (Math.random() * 16) | 0,
+      v = c === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+
+  let postId = 'item-' + uuidv4();
 function onAdd() {
   const text = input.value;
+  // let postId = 'item-' + uuidv4();
   if (text === '') {
     input.focus();
     return;
   }
-  const item = { text, id: Date.now() };
+  const item = { postId, text };
   myItems.push(item);
   saveItems();
 
-  const itemRow = createItem(text, item.id);
+  const itemRow = createItem(postId, text);
   items.appendChild(itemRow);
   itemRow.scrollIntoView({ block: 'center' });
   input.value = '';
@@ -63,10 +76,10 @@ function onAdd() {
   input.focus();
 }
 
-function createItem(text, id) {
+function createItem(postId, text) {
   const itemRow = document.createElement('li');
   itemRow.setAttribute('class', 'item_row');
-  itemRow.setAttribute('data-id', id || Date.now());
+  itemRow.setAttribute('id', postId);
   itemRow.innerHTML = `
     <div class="item">
         <button class="list__done" >
@@ -77,11 +90,16 @@ function createItem(text, id) {
       <div class="button_container">
             <button class="item_edit"}>Edit</button>
             <button class="item_delete" >
-                <i class="fas fa-trash-alt" data-id=${id || Date.now()}></i>
+                <i class="fas fa-trash-alt"}></i>
             </button>
       </div>
     </div>
     <div class="item_divider"></div>`;
+
+  const editButton = itemRow.querySelector('.item_edit');
+  editButton.addEventListener('click', (e) => editUpdate(e, postId, text));
+
+  saveItems();
   return itemRow;
 }
 
@@ -94,15 +112,9 @@ items.addEventListener('click', (event) => {
   if (listItem) {
     if (clickedElement.classList.contains('fa-trash-alt')) {
       myItems = myItems.filter((item) => item.id !== id);
-      saveItems();
+      
       listItem.remove();
-    }
-    if (clickedElement.classList.contains('item_edit')) {
-      myItems = myItems.filter((item) => item.id === id);
       saveItems();
-      console.log('myItems');
-      editUpdate();
-      console.log('myItemsedit');
     }
   }
 
@@ -110,34 +122,28 @@ items.addEventListener('click', (event) => {
     listItem.classList.toggle('checked');
     clickedElement.classList.toggle('clicked');
     const foundItem = myItems.find((item) => item.id === id);
-    foundItem.checked = !foundItem.checked;
+    foundItem.checked != foundItem.checked;
     saveItems();
   }
 });
 
-function editUpdate() {
-  const itemName = document.querySelector('data-id .item_name');
-  const editBTN = document.querySelector('data-id .item_edit');
-  const newItemInput = document.createElement('input');
+function editUpdate(event, postId, text) {
+  const itemName = document.querySelector(`#${postId} .item_name`);
+  const editBtn = document.querySelector(`#${postId} .item_edit`);
 
-  editBTN.addEventListener('click', (event) => {
-    console.log('Clicked');
+  if (event.target.innerText === 'Update') {
+    itemName.innerText = editInput.value;
+    editInput.value = '';
+    editBtn.innerText = 'Edit';
+  } else {
+    itemName.innerHTML = '';
 
-    if (event.target.innerText === 'Update') {
-      itemName.innerText = newItemInput.value;
-      newItemInput.value = '';
-      editBTN.innerText = 'Edit';
-    } else {
-      itemName.innerHTML = '';
+    editInput.type = 'text';
+    editInput.className = 'editInput';
+    itemName.appendChild(editInput);
+    editInput.focus();
+    editBtn.innerText = 'Update';
+  }
 
-      newItemInput.type = 'text';
-      newItemInput.className = 'newItemInput';
-      itemName.appendChild(newItemInput);
-      newItemInput.focus();
-
-      editBTN.innerText = 'Update';
-    }
-
-    saveItems();
-  });
+  saveItems();
 }

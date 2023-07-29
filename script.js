@@ -90,22 +90,22 @@ function onAdd() {
 }
 
 items.addEventListener('click', (event) => {
-  const clickedElement = event.target;
-  const listItem = clickedElement.closest('.item_row');
-  if (!listItem) return;
+  const targetElement = event.target;
+  const itemRow = targetElement.closest('.item_row');
+  if (!itemRow) return;
 
-  const id = parseInt(listItem.dataset.id);
-  if (listItem) {
-    if (clickedElement.classList.contains('fa-trash-alt')) {
+  const id = parseInt(itemRow.dataset.id);
+  if (itemRow) {
+    if (targetElement.classList.contains('fa-trash-alt')) {
       myItems = myItems.filter((item) => item.id !== id);
       saveItems();
-      listItem.remove();
+      itemRow.remove();
     }
   }
 
-  if (clickedElement.classList.contains('fa-circle-check')) {
-    listItem.classList.toggle('checked');
-    clickedElement.classList.toggle('clicked');
+  if (targetElement.classList.contains('fa-circle-check')) {
+    itemRow.classList.toggle('checked');
+    targetElement.classList.toggle('clicked');
     const foundItem = myItems.find((item) => item.id === id);
     foundItem.checked = !foundItem.checked;
     saveItems();

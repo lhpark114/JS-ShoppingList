@@ -3,7 +3,6 @@ const input = document.querySelector('.footer_input');
 const addBtn = document.querySelector('.footer_button');
 const form = document.querySelector('.new_form');
 
-// <!-- Local Storage -->
 let myItems = [];
 const listKey = 'myItems';
 
@@ -17,20 +16,26 @@ function loadItems() {
     myItems = JSON.parse(savedItems);
 
     myItems.forEach((item) => {
-      const newItem = createItem(item.postId, item.text);
+      const newItem = createItem(item.text, item.id);
       if (item.checked) {
         newItem.classList.add('checked');
         newItem.querySelector('.fa-circle-check').classList.add('clicked');
       }
     });
     renderItems();
+
+    const itemRow = document.querySelectorAll('.item_row');
+    if (itemRow.length > 0) {
+      itemRow[itemRow.length - 1].scrollIntoView({ block: 'center' });
+    }
+
   }
 }
 
 function renderItems() {
   items.innerHTML = '';
   myItems.forEach((item) => {
-    const newItem = createItem(item.postId, item.text);
+    const newItem = createItem(item.text, item.id);
     if (item.checked) {
       newItem.classList.add('checked');
       newItem.querySelector('.fa-circle-check').classList.add('clicked');
@@ -46,40 +51,11 @@ form.addEventListener('submit', (event) => {
   onAdd();
 });
 
-const postBox = document.querySelector('.post_box');
-const editInput = document.createElement('input');
-function uuidv4() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    var r = (Math.random() * 16) | 0,
-      v = c === 'x' ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
-}
 
-  let postId = 'item-' + uuidv4();
-function onAdd() {
-  const text = input.value;
-  // let postId = 'item-' + uuidv4();
-  if (text === '') {
-    input.focus();
-    return;
-  }
-  const item = { postId, text };
-  myItems.push(item);
-  saveItems();
-
-  const itemRow = createItem(postId, text);
-  items.appendChild(itemRow);
-  itemRow.scrollIntoView({ block: 'center' });
-  input.value = '';
-
-  input.focus();
-}
-
-function createItem(postId, text) {
+function createItem(text, id) {
   const itemRow = document.createElement('li');
   itemRow.setAttribute('class', 'item_row');
-  itemRow.setAttribute('id', postId);
+  itemRow.setAttribute('data-id', id || Date.now());
   itemRow.innerHTML = `
     <div class="item">
         <button class="list__done" >
@@ -88,19 +64,31 @@ function createItem(postId, text) {
         <span class="item_name">${text}</span>
 
       <div class="button_container">
-            <button class="item_edit"}>Edit</button>
+            <button class="item_edit">Edit</button>
             <button class="item_delete" >
-                <i class="fas fa-trash-alt"}></i>
+                <i class="fas fa-trash-alt" data-id=${id || Date.now()}></i>
             </button>
       </div>
     </div>
     <div class="item_divider"></div>`;
-
-  const editButton = itemRow.querySelector('.item_edit');
-  editButton.addEventListener('click', (e) => editUpdate(e, postId, text));
-
-  saveItems();
   return itemRow;
+}
+
+function onAdd() {
+  const text = input.value;
+  if (text === '') {
+    input.focus();
+    return;
+  }
+  const item = { text, id: Date.now() };
+  myItems.push(item);
+  saveItems();
+
+  const itemRow = createItem(text, item.id);
+  items.appendChild(itemRow);
+  itemRow.scrollIntoView({ block: 'center' });
+  input.value = '';
+  input.focus();
 }
 
 items.addEventListener('click', (event) => {
@@ -112,9 +100,8 @@ items.addEventListener('click', (event) => {
   if (listItem) {
     if (clickedElement.classList.contains('fa-trash-alt')) {
       myItems = myItems.filter((item) => item.id !== id);
-      
-      listItem.remove();
       saveItems();
+      listItem.remove();
     }
   }
 
@@ -122,28 +109,36 @@ items.addEventListener('click', (event) => {
     listItem.classList.toggle('checked');
     clickedElement.classList.toggle('clicked');
     const foundItem = myItems.find((item) => item.id === id);
-    foundItem.checked != foundItem.checked;
+    foundItem.checked = !foundItem.checked;
     saveItems();
   }
 });
 
-function editUpdate(event, postId, text) {
-  const itemName = document.querySelector(`#${postId} .item_name`);
-  const editBtn = document.querySelector(`#${postId} .item_edit`);
 
-  if (event.target.innerText === 'Update') {
-    itemName.innerText = editInput.value;
-    editInput.value = '';
-    editBtn.innerText = 'Edit';
-  } else {
-    itemName.innerHTML = '';
+items.addEventListener('click', (event) => {
+  const targetElement = event.target;
 
-    editInput.type = 'text';
-    editInput.className = 'editInput';
-    itemName.appendChild(editInput);
-    editInput.focus();
-    editBtn.innerText = 'Update';
+  if (targetElement.classList.contains('item_edit')) {
+    const itemRow = targetElement.closest('.item_row');
+    const itemName = itemRow.querySelector('.item_name');
+    const editBTN = itemRow.querySelector('.item_edit');
+    const newItemInput = document.createElement('input');
+
+    if (editBTN.innerText === 'Update') {
+      itemName.innerText = newItemInput.value;
+      newItemInput.value = '';
+      editBTN.innerText = 'Edit';
+    } else {
+      itemName.innerHTML = '';
+
+      newItemInput.type = 'text';
+      newItemInput.className = 'newItemInput';
+      itemName.appendChild(newItemInput);
+      newItemInput.focus();
+
+      editBTN.innerText = 'Update';
+    }
+
+    saveItems();
   }
-
-  saveItems();
-}
+});

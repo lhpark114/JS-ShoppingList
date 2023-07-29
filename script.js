@@ -28,7 +28,6 @@ function loadItems() {
     if (itemRow.length > 0) {
       itemRow[itemRow.length - 1].scrollIntoView({ block: 'center' });
     }
-
   }
 }
 
@@ -50,7 +49,6 @@ form.addEventListener('submit', (event) => {
   event.preventDefault();
   onAdd();
 });
-
 
 function createItem(text, id) {
   const itemRow = document.createElement('li');
@@ -114,7 +112,6 @@ items.addEventListener('click', (event) => {
   }
 });
 
-
 items.addEventListener('click', (event) => {
   const targetElement = event.target;
 
@@ -137,8 +134,8 @@ items.addEventListener('click', (event) => {
       newItemInput.focus();
 
       editBTN.innerText = 'Update';
+      saveItems();
     }
-
-    saveItems();
   }
+  saveItems();
 });
